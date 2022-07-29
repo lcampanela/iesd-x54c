@@ -1,0 +1,5 @@
+= Projeto iesd.webservice.QcClient
+
+Tem por objetivo demonstrar a invocação de operações do Web Service QCApi.
+
+<a desenvolver...>

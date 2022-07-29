@@ -1,0 +1,52 @@
+# This Vagrant script creates a kubernetesmaster and two kubernetesworkers on Virtualbox.
+# Vagrantfile API/syntax version
+VAGRANTFILE_API_VERSION = "2"
+MASTER_SERVER_IP = "192.168.56.10"
+MASTER_HOST_NAME = 'k8smaster'
+WORKER_SERVER_IP_BASE = "192.168.56.1"
+WORKER_HOST_NAME = "k8sworker"
+WORKER_NODES = 2
+K8S_VERSION = "1.24.0"
+
+Vagrant.configure('2') do |config|
+  config.vm.box_check_update = true
+  config.vm.synced_folder "./manifests","/manifests"
+  
+    # Web Application server, nodewa
+    config.vm.define 'nodek8smaster' do |kubernetesmaster|
+      kubernetesmaster.vm.box = 'ubuntu/focal64'
+      kubernetesmaster.vm.hostname = MASTER_HOST_NAME
+      kubernetesmaster.vm.network "private_network", ip: MASTER_SERVER_IP
+      kubernetesmaster.vm.network "forwarded_port", guest: 8001, host: 8001
+      # Configure VM
+      kubernetesmaster.vm.provider 'virtualbox' do |vb|
+        vb.gui = false
+        vb.name = "k8smastervm"
+        vb.memory = 4096
+        vb.cpus = 4
+      end
+      # Install and start kubernetesmaster
+      kubernetesmaster.vm.provision "shell", path: "config-common.sh", args: [MASTER_SERVER_IP, K8S_VERSION]
+      kubernetesmaster.vm.provision "shell", path: "config-master.sh", args: [MASTER_SERVER_IP, K8S_VERSION]
+    end
+  
+  # kubernetesworker ensemble node 1..2
+  (1..WORKER_NODES).each do |i|
+    config.vm.define "nodek8sworker#{i}" do |kubernetesworker|
+      kubernetesworker.vm.box = 'ubuntu/xenial64'
+      kubernetesworker.vm.hostname = WORKER_HOST_NAME+"#{i}"
+      kubernetesworker.vm.network :private_network, ip: WORKER_SERVER_IP_BASE+"#{i}"
+
+      # Configure VM
+      kubernetesworker.vm.provider 'virtualbox' do |vb|
+        vb.gui = false
+        vb.name = "k8sworkervm#{i}"
+        vb.memory = 2048
+        vb.cpus = 2
+      end
+      # Install and start kubernetesworker
+      kubernetesworker.vm.provision "shell", path: "config-common.sh", args: [WORKER_SERVER_IP_BASE+"#{i}", K8S_VERSION]
+      kubernetesworker.vm.provision "shell", path: "config-worker.sh", args: [WORKER_SERVER_IP_BASE+"#{i}", K8S_VERSION]
+    end
+  end
+end

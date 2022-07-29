@@ -1,0 +1,97 @@
+= ISyJINI 
+
+== Projects/Artifacts
+
+* CesJiniBOM
+
+* CesJiniHello
+** CesJiniHelloAPIM
+** CesJiniHelloDOE
+** SerJiniHello
+** SerJiniHelloCli
+
+* CesJiniInfra (JINI infrastructure Services)- Custom distribution of Apache River(JINI)
+** CesJiniAllDep
+** SerJiniBoot
+** SerJiniBrowser
+** SerJiniHelper
+** SerJiniHttpServer
+
+* ces.hellobank
+* ces.helloevents
+* ces.helloservices
+* ces.hellotspacequeue
+* library.jinihelper
+
+== Notes to deploy on Linux
+Verify if Multicast is enabled
+----
+sudo ifconfig enp0s8 multicast
+----
+
+Verify Multicast registered groups
+----
+netstat -g
+----
+
+Set Multicast enabled
+----
+sudo route -n add -net 224.0.0.0 netmask 240.0.0.0 dev enp0s8
+----
+
+Dump Multicast messages
+----
+sudo tcpdump -i enp0s8 ip multicast
+----
+
+To easily start JINI system services (Reggie, MAhalo, ...)
+----
+java -jar java -jar ~/git/iesd1920sv-dev/jini.helloservices/ces.jini-infrastructure/deploy.sys-services/target/deploy.sys-services-1.0.0-jar-with-dependencies.jar 
+----
+
+To start the JINI Browser
+----
+java -jar ~/git/iesd1920sv-dev/jini.helloservices/ces.jini-infrastructure/service.browser/target/service.browser-1.0.0-jar-with-dependencies.jar
+----
+
+
+
+=== ces.helloservices (HelloWorld)
+
+* maven will copy compiled classes to ${user.home}/.jini/www/classes 
+
+.pom.xml (DONT EDIT)
+[source,xml]
+----
+<outputDirectory>${user.home}/.jini_iesd/www/classes</outputDirectory>
+----
+
+
+=== ces.jini-infrastructure (Jini system Services)
+
+* mdeos.jini.boostrapper config for HTTPd (DONT EDIT)
+
+.StartJiniSysServices.config(DONT EDIT)
+[source,java]
+----
+private static httpd_base_dir = System.getProperty("user.home") + "/.jini/www/";
+----
+
+2) Start JiniBoostrapper 
+* USE YOU IDE AND START THE MAIN class
+* see README.adoc in ces.jini-infrastructure
+
+
+== Jini Services 
+
+* Reggie - Lookup and Registry service implementation
+* Mahalo - Transaction Manager 
+* Fiddler - Lookup discovery service implementation
+* Mercury - Event mailbox service
+* Norm -  Lease renewal service implementation 
+* Outrigger - JavaSpace Iplementation
+* Browser **NOT A SERVICE** - Swing GUI application to get information about services 
+
+
+== reference
+* https://river.apache.org/

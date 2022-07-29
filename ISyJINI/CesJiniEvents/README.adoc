@@ -1,0 +1,6 @@
+= JINI ces.helloevent
+
+Includes the projects:
+* api.helloevents 
+* service.helloeventsimpl - Implement HelloEvent API (Manage Subscription/Listener and dispatch event to Listeners)
+* service.helloeventsclient - Considers Event subscription and publication examples

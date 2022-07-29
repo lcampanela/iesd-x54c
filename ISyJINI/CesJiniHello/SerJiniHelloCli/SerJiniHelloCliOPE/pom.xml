@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial.isyiesd.cesjinihello</groupId>
+		<artifactId>SerJiniHelloCli</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyiesd.cesjinihello.serjinihellocli</groupId>
+	<artifactId>SerJiniHelloCliOPE</artifactId>
+	<packaging>bundle</packaging>
+
+	<name>${module.type} :: SerJiniHelloCliOPE</name>
+	<description>${module.type} :: SerJiniHelloCliOPE</description>
+
+	<properties>
+		<module.type>OPE</module.type>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>isos.tutorial.isyjini.cesjinihello</groupId>
+			<artifactId>CesJiniHelloAPIM</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>isos.tutorial.isyjini.cesjiniinfra.serjinihelper</groupId>
+			<artifactId>SerJiniHelperOPE</artifactId>
+			</dependency>
+
+		<!-- Runtime ONLY -->
+		<dependency>
+			<groupId>isos.tutorial.isyiesd.cesjiniinfra.serjinialldep</groupId>
+			<artifactId>SerJiniAllDepAPIM</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-Activator>iesd.jini.helloworldimpl.HelloWorldMain</Bundle-Activator>
+						<Export-Package>!*</Export-Package>
+						<Import-Package>*</Import-Package>
+						<Embed-Transitive>true</Embed-Transitive>
+						<Embed-Dependency>*;scope=compile|runtime;inline=true</Embed-Dependency>
+					</instructions>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>${maven-assembly-plugin}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<mainClass>iesd.jini.helloworldclient.ClientMainWithListener</mainClass>
+						</manifest>
+					</archive>
+					<descriptorRefs>
+						<descriptorRef>jar-with-dependencies</descriptorRef>
+					</descriptorRefs>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

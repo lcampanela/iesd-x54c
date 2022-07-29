@@ -1,0 +1,28 @@
+
+# This Vagrant script creates a stanalone Zookeeper node on Virtualbox.
+# Vagrantfile API/syntax version
+VAGRANTFILE_API_VERSION = "2"
+UNRELIABLE_ZOOKEEPER_SERVER_IP = "192.168.56.120"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+  
+  # Zookeeper standalone unreliable server, node-u
+  config.vm.define 'nodeu' do |zookeeper|
+    zookeeper.vm.box = 'ubuntu/impish64'
+    zookeeper.vm.hostname = 'iserveru'
+    zookeeper.vm.network "private_network", ip: UNRELIABLE_ZOOKEEPER_SERVER_IP, hostname: true
+
+    # Configure VM
+    zookeeper.vm.provider 'virtualbox' do |vb, override|
+        # Looking how to resolve tis server name (dns) form the host (windows)
+      vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on",
+      # this adictional option is also referenced (?):
+        "--natdnshostresolver2", "on"]
+      vb.name = "iservervmu"
+      vb.memory = '1024'
+      vb.cpus = 1
+    end
+    # Install and start zookeeper
+    zookeeper.vm.provision "shell", path: "installresources.sh"
+  end
+end

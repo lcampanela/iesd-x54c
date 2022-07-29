@@ -1,0 +1,32 @@
+= Project deploy.activator-services
+
+Start the Karaf in a cleaned state.
+
+The clean parameter is optional. It is also possible to install the webconsole feature and therefore access the console through the address http://localhost:8181/system/console/bundles[link].
+
+Now, lets go start Karaf, it can be easily done from any location if the <KARAF_HOME> environment variable is defined. See more about karaf installation here https://karaf.apache.org/manual/latest/#_prerequisites[link].
+
+* <KARAF_HOME>\bin\karaf [clean]
+
+In the Karaf console give the commands to install the deploymentfeature:
+
+[standard output]
+----
+feature:install webconsole
+
+feature:repo-add mvn:org.mdeos.osgi.tutorial.activator-services/deploy-activator-services/1.0.0/xml/features
+feature:install deploy-activator-services
+
+HelloWorldImpl.sayHelloWorld(): ## Hello World! ##
+HelloWorldClient.start(): ## HELLO WORLD! ##
+karaf@root()>             
+karaf@root()> bundle:list
+START LEVEL 100 , List Threshold: 50
+ID | State    | Lvl | Version | Name
+---+----------+-----+---------|-----------------------------------------
+22 | Active   |  80 | 4.2.8   | Apache Karaf :: OSGi Services :: Event
+44 | Resolved |  50 | 1.0.0   | helloworldapi
+45 | Resolved |  50 | 1.0.0   | helloworldimpl Bundle
+46 | Active   |  50 | 1.0.0   | helloworldclient Bundle
+----
+

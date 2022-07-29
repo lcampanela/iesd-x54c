@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial</groupId>
+		<artifactId>ISyJINI</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyjini</groupId>
+	<artifactId>CesJiniInfra</artifactId>
+	<packaging>pom</packaging>
+
+	<name>${module.type} :: CesJiniInfra</name>
+	<description>${module.type} :: CesJiniInfra JINI Infrastructure services</description>
+
+	<properties>
+		<module.type>CES</module.type>
+
+	</properties>
+
+	<modules>
+		<module>SerJiniBoot</module>
+		<module>SerJiniHttpServer</module>
+		<module>SerJiniHelper</module>
+		<module>SerJiniAllDep</module>
+		<module>SerJiniBrowser</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>isos.tutorial.isyjini.cesjiniinfra.serjinihttpserver</groupId>
+				<artifactId>SerJiniHttpServerOPE</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+
+			<!-- Runtime ONLY -->
+			<dependency>
+				<groupId>isos.tutorial.isyiesd.cesjiniinfra.serjinialldep</groupId>
+				<artifactId>SerJiniAllDepAPIM</artifactId>
+				<version>2.2.2</version>
+				<scope>runtime</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+</project>

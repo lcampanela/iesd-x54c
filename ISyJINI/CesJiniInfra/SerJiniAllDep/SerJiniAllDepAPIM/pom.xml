@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial.isyiesd.cesjiniinfra</groupId>
+		<artifactId>SerJiniAllDep</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyiesd.cesjiniinfra.serjinialldep</groupId>
+	<artifactId>SerJiniAllDepAPIM</artifactId>
+	<version>2.2.2</version>
+	<packaging>bundle</packaging>
+
+	<name>${module.type} :: SerJiniAllDepAPIM</name>
+	<description>${module.type} :: Single Bundle with all JINI dependencies - SerJiniAllDepAPIM</description>
+
+	<properties>
+		<module.type>APIM</module.type>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.core</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+
+		<!-- net.jini Apache River -->
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>tools</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>start</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>reggie-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>reggie</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>outrigger-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>outrigger</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mdeos.jini.tutorial.thirdparty</groupId>
+			<artifactId>outrigger-snaplogstore</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>norm</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>norm-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>mercury-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>mercury</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>fiddler-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>mahalo-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>fiddler</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.river</groupId>
+			<artifactId>mahalo</artifactId>
+		</dependency>
+
+		<!-- net.jini dependencies -->
+		<dependency>
+			<groupId>net.jini.lookup</groupId>
+			<artifactId>serviceui</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.jini</groupId>
+			<artifactId>jsk-lib</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.jini</groupId>
+			<artifactId>jsk-dl</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.jini</groupId>
+			<artifactId>jsk-platform</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.jini</groupId>
+			<artifactId>jsk-resources</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.jini</groupId>
+			<artifactId>jsk-policy</artifactId>
+		</dependency>
+
+		<!-- Other libraries -->
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcmail-jdk16</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcpg-jdk16</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bctsp-jdk16</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.bouncycastle</groupId>
+			<artifactId>bcprov-jdk16</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>animal-sniffer</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.codehaus.mojo</groupId>
+			<artifactId>animal-sniffer-ant-tasks</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>asm</groupId>
+			<artifactId>asm-all</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.littleshoot</groupId>
+			<artifactId>dnsjava</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.github.stephenc.high-scale-lib</groupId>
+			<artifactId>high-scale-lib</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-Version>${project.version}</Bundle-Version>
+						<Bundle-Activator></Bundle-Activator>
+						<Import-Package>*</Import-Package>
+						<Export-Package>
+							net.jini*;version=${jini},
+							com.sun.jini*;version=${jini},
+							com.artima.lookup.util*,
+							org.apache.river.*;version=${jini},
+							org.objectweb.asm*,
+							org.bouncycastle*,
+							org.codehaus.mojo.animal_sniffer*,
+							org.xbill.DNS*,
+							org.cliffc.high_scale_lib*,
+							au.net.zeus.collection.*,
+							org.apache.velocity*,
+							com.sun.jini.outrigger.snaplogstore*
+						</Export-Package>
+						<Embedded-Depencency></Embedded-Depencency>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

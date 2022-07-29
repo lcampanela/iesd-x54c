@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial.isyjini</groupId>
+		<artifactId>CesJiniBOM</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyjini.cesjinibom</groupId>
+	<artifactId>SerJiniBomAPIM</artifactId>
+	<packaging>pom</packaging>
+
+	<name>${module.type} :: SerJiniBomAPIM</name>
+	<description>${module.type} :: JINI all dependencies SerJiniBomAPIM</description>
+
+	<properties>
+		<module.type>BOM</module.type>
+
+		<jini>2.2.2</jini>
+		<jsk.version>${jini}</jsk.version>
+
+		<outrigger-snaplogstore.version>2.2.2</outrigger-snaplogstore.version>
+		<velocity.version>1.7</velocity.version>
+		<junit.version>4.12</junit.version>
+		<avalon-logkit.version>2.2.1</avalon-logkit.version>
+		<geronimo-jms_1.1_spec.version>1.1.1</geronimo-jms_1.1_spec.version>
+		<jta.version>1.1</jta.version>
+		<javax.mail.version>1.5.2</javax.mail.version>
+		<log4j.version>1.2.15</log4j.version>
+		<jmxtools.version>1.2.1</jmxtools.version>
+		<org.apache.commons-io.version>1.3.2</org.apache.commons-io.version>
+		<asm.version>3.3.1</asm.version>
+		<bcpg-jdk15on.version>1.54</bcpg-jdk15on.version>
+		<dnsjava.version>2.0.8</dnsjava.version>
+		<littleshoot.dnsjava.version>2.1.3</littleshoot.dnsjava.version>
+
+		<bcpg-jdk16.version>1.46</bcpg-jdk16.version>
+		<animal-sniffer.version>1.4</animal-sniffer.version>
+		<asm-all.versin>3.2</asm-all.versin>
+		<high-scale-lib.version>1.1.4</high-scale-lib.version>
+		<commons-collections.version>3.2.1</commons-collections.version>
+
+		<!-- Libraries Versions -->
+		<osgi>7.0.0</osgi>
+		<osgi.cmpn>7.0.0</osgi.cmpn>
+		<org.osgi.service.component>1.4.0</org.osgi.service.component>
+		<org.osgi.service.component.annotations>1.4.0</org.osgi.service.component.annotations>
+		<osgi.annotation>7.0.0</osgi.annotation>
+
+		<maven-install-plugin>2.5.2</maven-install-plugin>
+		<library.jinihelper>2.2.2</library.jinihelper>
+	</properties>
+
+	<dependencyManagement>
+		<dependencies>
+
+			<!-- SUPPORT LIBRARY :: BEGIN -->
+			<dependency>
+				<groupId>isos.tutorial.isyiesd.cesjiniinfra.serjinialldep</groupId>
+				<artifactId>SerJiniAllDepAPIM</artifactId>
+				<version>${jini}</version>
+				<scope>runtime</scope>
+			</dependency>
+			<dependency>
+				<groupId>isos.tutorial.isyjini.cesjiniinfra.serjinihelper</groupId>
+				<artifactId>SerJiniHelperOPE</artifactId>
+				<version>${library.jinihelper}</version>
+			</dependency>
+			<!-- SUPPORT LIBRARY :: END -->
+
+			<!-- Apache River :: JINI CORES API/IMPLEMENTATION -->
+			<dependency>
+				<groupId>net.jini</groupId>
+				<artifactId>jsk-platform</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jini</groupId>
+				<artifactId>jsk-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jini</groupId>
+				<artifactId>jsk-lib</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jini</groupId>
+				<artifactId>jsk-resources</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jini</groupId>
+				<artifactId>jsk-policy</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+
+			<!-- Apache River :: JINI Services -->
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>reggie</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>reggie-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>start</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>tools</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>outrigger</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>outrigger-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mdeos.jini.tutorial.thirdparty</groupId>
+				<artifactId>outrigger-snaplogstore</artifactId>
+				<version>${outrigger-snaplogstore.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>norm</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>norm-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>mercury</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>mercury-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>mahalo</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>mahalo-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>fiddler</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.river</groupId>
+				<artifactId>fiddler-dl</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.jini.lookup</groupId>
+				<artifactId>serviceui</artifactId>
+				<version>${jsk.version}</version>
+			</dependency>
+
+			<!-- TO REMOVED -->
+			<dependency>
+				<groupId>org.osgi</groupId>
+				<artifactId>osgi.core</artifactId>
+				<scope>provided</scope>
+				<version>${osgi}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.velocity</groupId>
+				<artifactId>velocity</artifactId>
+				<scope>provided</scope>
+				<version>${velocity.version}</version>
+			</dependency>
+
+			<!-- TO REMOVE -->
+			<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-io</artifactId>
+				<version>${org.apache.commons-io.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.apache.avalon.logkit</groupId>
+				<artifactId>avalon-logkit</artifactId>
+				<scope>provided</scope>
+				<version>${avalon-logkit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<scope>provided</scope>
+				<version>${junit.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.stephenc.high-scale-lib</groupId>
+				<artifactId>high-scale-lib</artifactId>
+				<scope>provided</scope>
+				<version>${high-scale-lib.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>dnsjava</groupId>
+				<artifactId>dnsjava</artifactId>
+				<scope>provided</scope>
+				<version>${dnsjava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>asm</groupId>
+				<artifactId>asm</artifactId>
+				<scope>provided</scope>
+				<version>${asm.version}</version>
+			</dependency>
+
+			<!-- VARIOUS -->
+			<dependency>
+				<groupId>asm</groupId>
+				<artifactId>asm-all</artifactId>
+				<version>${asm-all.versin}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.littleshoot</groupId>
+				<artifactId>dnsjava</artifactId>
+				<version>${littleshoot.dnsjava.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>commons-collections</groupId>
+				<artifactId>commons-collections</artifactId>
+				<version>${commons-collections.version}</version>
+			</dependency>
+
+			<!-- bouncycastle -->
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpg-jdk15on</artifactId>
+				<scope>provided</scope>
+				<version>${bcpg-jdk15on.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcmail-jdk16</artifactId>
+				<version>${bcpg-jdk16.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcpg-jdk16</artifactId>
+				<version>${bcpg-jdk16.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bctsp-jdk16</artifactId>
+				<version>${bcpg-jdk16.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.bouncycastle</groupId>
+				<artifactId>bcprov-jdk16</artifactId>
+				<version>${bcpg-jdk16.version}</version>
+			</dependency>
+
+			<!-- animal-sniffer -->
+			<dependency>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>animal-sniffer</artifactId>
+				<version>${animal-sniffer.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>animal-sniffer-ant-tasks</artifactId>
+				<version>${animal-sniffer.version}</version>
+			</dependency>
+
+
+		</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>${maven-install-plugin}</version>
+				<executions>
+
+					<execution>
+						<id>install-outrigger-snaplogstore</id>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+						<phase>initialize</phase>
+						<configuration>
+							<file>${project.basedir}/main/libs/outrigger-snaplogstore.jar</file>
+							<groupId>org.mdeos.jini.tutorial.thirdparty</groupId>
+							<artifactId>outrigger-snaplogstore</artifactId>
+							<version>2.2.2</version>
+							<packaging>jar</packaging>
+						</configuration>
+					</execution>
+
+				</executions>
+			</plugin>
+
+		</plugins>
+	</build>
+
+</project>

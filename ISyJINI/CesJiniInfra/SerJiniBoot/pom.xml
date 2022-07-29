@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial.isyjini</groupId>
+		<artifactId>CesJiniInfra</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyjini.cesjiniinfra</groupId>
+	<artifactId>SerJiniBoot</artifactId>
+	<packaging>pom</packaging>
+
+	<name>${module.type} :: SerJiniBoot</name>
+	<description>${module.type} :: JINI dependencies SerJiniBoot</description>
+
+	<properties>
+		<module.type>SERVICE</module.type>
+
+		<jini.version></jini.version>
+	</properties>
+
+	<modules>
+		<module>SerJiniBootOPE</module>
+	</modules>
+
+</project>

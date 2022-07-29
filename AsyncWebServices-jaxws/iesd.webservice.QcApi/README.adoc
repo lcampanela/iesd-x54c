@@ -1,0 +1,5 @@
+= Projeto iesd.webservice.QcApi
+
+Formalização da interface QcApi
+
+<a desenvolver...>

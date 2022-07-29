@@ -1,0 +1,7 @@
+= Projeto iesd.ws.rs.QcProxy
+
+Proxy do Web Service REST com interface ReadWriteQcData
+
+Contrariamente ao que acontece com Web Services SOAP em que a definição da interface tem uma linguagem standard, WSDL, com os serviços web REST a situação ainda não é clara. Existem propostas de linguagem de definição de serviços REST, e.g. a linguagem RESTful Service Description Language (https://www.balisage.net/Proceedings/vol10/html/Robie01/BalisageVol10-Robie01.html[RSDL]), Web Application Description Language (WADL) proposta pelo (W3C), entre outras. A linguagem WADL tem implementações no projeto Apache https://cxf.apache.org/docs/jaxrs-services-description.html[CXF] com ligação ao projeto Swagger.
+
+A classe QcDataRsProxy é neste caso gerada manualmente e permite "esconder" ou tornar transparente o código cliente estabelecido pelo standard JAX-RS.

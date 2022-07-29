@@ -1,0 +1,36 @@
+= Projeto iesd.webservice.QcClient
+
+Tem por objetivo demonstrar o acesso a recursos QcApi via Web Service REST, implementado pela classe ReadWriteQcDataRS e acessível (lado cliente) através da implementação QcDataRsProxy.
+
+[source, java]
+----
+...
+public class QcDataRsProxy implements ReadWriteQcData {
+
+    private final static String DEFAULT_BASE_URL = "http://localhost:2058/iesd/QcDataRS";
+    private final String BASE_URL;
+
+    private final Client client;
+...
+----
+
+Exemplo de uma invocação:
+
+[source, java]
+----
+public class TestaQcDataTransactions {
+	public static void main(String[] args) {
+		QcDataRsProxy service;
+...
+		System.out.println("========== /writeQcData");
+		for (int i = 0; i < emails.length; i++) {
+			String email = emails[i];
+			qcData.setEmail(email);
+			
+			int result = service.writeQcData(qcData);
+			
+			System.out.println("writeQcData(qcData) -> email = " + email + ", result = " + result);
+		}
+...
+----
+

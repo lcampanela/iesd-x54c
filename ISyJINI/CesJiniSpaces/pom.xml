@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial</groupId>
+		<artifactId>ISyJINI</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyiesd</groupId>
+	<artifactId>CesJiniSpaces</artifactId>
+	<packaging>pom</packaging>
+
+	<name>${module.type} :: CesJiniSpaces</name>
+	<description>${module.type} :: Simple CesJiniSpaces Bundle Project.</description>
+
+	<properties>
+		<module.type>CES ::</module.type>
+		<osgi>6.0.0</osgi>
+		<osgi.cmpn>6.0.0</osgi.cmpn>
+		<org.osgi.service.component>1.4.0</org.osgi.service.component>
+		<org.osgi.service.component.annotations>1.4.0</org.osgi.service.component.annotations>
+		<osgi.annotation>6.0.0</osgi.annotation>
+
+		<maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+		<maven-assembly-plugin>3.3.0</maven-assembly-plugin>
+		<maven-scr-plugin>1.24.0</maven-scr-plugin>
+		<maven-install-plugin>2.5.2</maven-install-plugin>
+		<maven-bundle-plugin>4.2.1</maven-bundle-plugin>
+		<karaf-maven-plugin>4.2.6</karaf-maven-plugin>
+	</properties>
+
+	<modules>
+		<module>SerJiniSpacesProducer</module>
+		<module>SerJiniSpacesConsumer</module>
+		<module>CesJiniSpacesDOE</module>
+		<module>CesJiniSpacesAPIM</module>
+	</modules>
+
+</project>

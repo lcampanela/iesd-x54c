@@ -1,0 +1,4 @@
+= ISyIESD project
+
+Group simple examples supporting the discussion of distributed systems concepts.
+

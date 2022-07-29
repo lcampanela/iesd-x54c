@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+	
+	<groupId>isos.tutorial</groupId>
+	<artifactId>ISyIESD</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+	
+	<name>${module.type} isyiesd</name>
+	<url>${isos.base.url}</url>
+
+	<properties>
+		<isos.base.url>http://iesd.isos.mdeos.org</isos.base.url>
+		<module.type>ISYSTEM ::</module.type>
+		<java-release>8</java-release>
+		<java-source>8</java-source>
+		<java-target>8</java-target>
+		<maven-assembly-plugin>3.3.0</maven-assembly-plugin>
+		<maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+		<maven-clean-plugin>3.1.0</maven-clean-plugin>
+		<karaf-maven-plugin>4.2.6</karaf-maven-plugin>
+		<maven-bundle-plugin>4.2.1</maven-bundle-plugin>
+		<maven-install-plugin>2.5.2</maven-install-plugin>
+	</properties>
+
+	<modules>
+		<module>CesVector</module>
+		<module>CesOSGi</module>
+		<module>CesZookeeper</module>
+		<module>CesKafka</module>
+		<module>CesQc</module>
+	</modules>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>${maven-bundle-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.karaf.tooling</groupId>
+					<artifactId>karaf-maven-plugin</artifactId>
+					<version>${karaf-maven-plugin}</version>
+					<extensions>true</extensions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

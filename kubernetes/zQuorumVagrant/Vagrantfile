@@ -1,0 +1,33 @@
+
+# This Vagrant script creates a Zookeeper ensemble on Virtualbox.
+# Vagrantfile API/syntax version
+VAGRANTFILE_API_VERSION = "2"
+COMMON_ZOOKEEPER_SERVER_IP = "192.168.56.11"
+NUMBER_ZOOKEEPER_ENSEMBLE_NODES = 5
+
+Vagrant.configure('2') do |config|
+
+  # Zookeeper ensemble node 1..5
+  (1..NUMBER_ZOOKEEPER_ENSEMBLE_NODES).each do |i|
+    config.vm.define "node#{i}" do |zookeeper|
+      zookeeper.vm.box = 'ubuntu/impish64'
+      zookeeper.vm.hostname = "iserver#{i-1}"
+      zookeeper.vm.network :private_network, ip: COMMON_ZOOKEEPER_SERVER_IP+"#{i-1}", hostname: true
+
+      # Configure VM
+      zookeeper.vm.provider 'virtualbox' do |vb|
+        vb.name = "iservervm#{i-1}"
+        vb.memory = '1024'
+        vb.cpus = 1
+      end
+      # Install and start zookeeper
+      zookeeper.vm.provision "shell", path: "installresources.sh"
+      zookeeper.vm.provision "shell", inline: <<-SCRIPT
+         echo Zookeeper Ensemble node identification...
+         echo -e "#{i}" > /var/lib/zookeeper/myid
+         echo End of the configuration...
+        SCRIPT
+      zookeeper.vm.provision "shell", path: "startresources.sh"
+    end
+  end
+end

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    
+    <parent>
+	    <groupId>isos.tutorial</groupId>
+	    <artifactId>ISyJINI</artifactId>
+        <version>0.1.0</version>
+    </parent>
+
+    <groupId>isos.tutorial.isyjini</groupId>
+    <artifactId>CesJiniBank</artifactId>
+    <packaging>pom</packaging>
+	
+    <name>${module.type}  :: CesJiniBank</name>
+    <description>${module.type}  :: Simple CesJiniBank bundle project.</description>
+
+    <properties>        
+        <module.type>CES</module.type>
+    </properties>        
+    
+
+    <modules>
+        <module>CesJiniBankAPIM</module>
+        <module>CesJiniBankDOE</module>
+        <module>SerJiniBank</module>
+        <module>SerJiniBankCli</module>
+        <module>SerJiniBankManager</module>
+        <module>SerJiniBankTransf</module>
+    </modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>isos.tutorial.isyjini.cesjinibom</groupId>
+			<artifactId>SerJiniBomAPIM</artifactId>
+			<version>0.1.0</version>
+			<scope>import</scope>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+</project>

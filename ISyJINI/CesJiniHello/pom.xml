@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial</groupId>
+		<artifactId>ISyJINI</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyjini</groupId>
+	<artifactId>CesJiniHello</artifactId>
+	<packaging>pom</packaging>
+
+	<name>${module.type} :: CesJiniHello</name>
+	<description>${module.type} :: Simple CesJiniHello Bundle Project.</description>
+
+	<properties>
+		<module.type>CES</module.type>
+	</properties>
+
+	<modules>
+		<module>CesJiniHelloAPIM</module>
+		<module>CesJiniHelloDOE</module>
+		<module>SerJiniHello</module>
+		<module>SerJiniHelloCli</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>isos.tutorial.isyjini</groupId>
+				<artifactId>CesJiniHelloAPIM</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>isos.tutorial.isyiesd.cesjinihello.serjinihello</groupId>
+				<artifactId>SerJiniHelloOPE</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+			<dependency>
+				<groupId>isos.tutorial.isyiesd.cesjinihello.serjinihellocli</groupId>
+				<artifactId>SerJiniHelloCliOPE</artifactId>
+				<version>0.1.0</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+
+	<dependencies>
+		<dependency>
+			<groupId>isos.tutorial.isyjini.cesjinibom</groupId>
+			<artifactId>SerJiniBomAPIM</artifactId>
+			<version>0.1.0</version>
+			<scope>import</scope>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
+
+</project>

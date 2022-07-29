@@ -1,0 +1,6 @@
+/* Security policy for non-secure httpd */
+
+/* Grant all permissions to our classes */
+grant {
+    permission java.security.AllPermission;
+};

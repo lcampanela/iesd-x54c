@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>isos.tutorial.isyjini</groupId>
+		<artifactId>CesJiniHello</artifactId>
+		<version>0.1.0</version>
+	</parent>
+
+	<groupId>isos.tutorial.isyjini.cesjinihello</groupId>
+	<artifactId>CesJiniHelloDOE</artifactId>
+	<packaging>bundle</packaging>
+
+	<name>${module.type} :: CesJiniHelloDOE</name>
+	<description>${module.type} :: CesJiniHelloDOE</description>
+
+	<properties>
+		<module.type>DOE</module.type>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>isos.tutorial.isyjini.cesjinihello</groupId>
+			<artifactId>CesJiniHelloAPIM</artifactId>
+			<version>0.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>isos.tutorial.isyiesd.cesjinihello.serjinihello</groupId>
+			<artifactId>SerJiniHelloOPE</artifactId>
+			</dependency>
+		<dependency>
+			<groupId>isos.tutorial.isyiesd.cesjinihello.serjinihellocli</groupId>
+			<artifactId>SerJiniHelloCliOPE</artifactId>
+			</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.karaf.tooling</groupId>
+				<artifactId>karaf-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+		<pluginManagement>
+			<plugins>
+				<!--This plugin's configuration is used to store Eclipse m2e settings 
+					only. It has no influence on the Maven build itself. -->
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>
+											org.apache.karaf.tooling
+										</groupId>
+										<artifactId>
+											karaf-maven-plugin
+										</artifactId>
+										<versionRange>
+											[4.2.6,)
+										</versionRange>
+										<goals>
+											<goal>verify</goal>
+											<goal>
+												features-generate-descriptor
+											</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<ignore></ignore>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+</project>

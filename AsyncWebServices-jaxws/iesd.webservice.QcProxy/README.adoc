@@ -1,0 +1,6 @@
+= Projeto iesd.webservice.QcProxy
+
+Proxy do Web Service com interface QcApi
+
+<a desenvolver...>
+

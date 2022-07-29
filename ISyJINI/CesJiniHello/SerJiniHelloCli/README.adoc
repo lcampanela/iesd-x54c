@@ -1,0 +1,57 @@
+= Project ces.jini-infrastructure
+
+
+This is a custom distribution of JINI 
+
+== About 
+
+.Jini Services 
+|===
+|Service    |Description
+|Reggie     |Lookup and Registry service implementation
+|Mahalo     |Transaction Manager 
+|Fiddler    |Lookup discovery service implementation
+|Mercury    |Event mailbox service
+|Norm       |Lease renewal service implementation 
+|Outrigger  |JavaSpace Iplementation
+|Browser    |**NOT A SERVICE** Swing GUI application to get information about services 
+|===
+
+
+
+== Jini Bootstrapper Project 
+
+* First build the project
+* __PS: Start only one__ because both JiniBootstrapperMain and JiniHttpServerMain has http server at port 8080
+
+
+
+.Build a single jar
+----
+mvn -Pbigjar package
+----
+
+
+.How to run (Every OS)
+----
+cd target/
+java -jar *with-depen*.jar 
+----
+
+.How to run at UNIX 
+----
+cd target/
+java -cp ".:*:target/*" org.mdeos.jini.bootstrapper.JiniBootstrapperMain
+java -cp ".:*:target/*" org.mdeos.jini.bootstrapper.JiniHttpServerMain
+java -cp ".:*:target/*" org.mdeos.jini.bootstrapper.JiniBrowserMain
+----
+
+
+.How to run at WINDOWS
+----
+cd target/
+java -cp ".;*;target/*" org.mdeos.jini.bootstrapper.JiniBootstrapperMain
+java -cp ".;*;target/*" org.mdeos.jini.bootstrapper.JiniHttpServerMain
+java -cp ".;*;target/*" org.mdeos.jini.bootstrapper.JiniBrowserMain
+----
+

@@ -1,0 +1,5 @@
+= Projeto AsyncWebServices
+
+Tem por objetivo servir de base à implementação do algoritmo de coordenação Quorum Consensus, implementado na base de Web Services SOAP.
+
+<a desenvolver...>

@@ -1,0 +1,216 @@
+= Evaluation of Kafka and Zookeeper
+
+The messaging system Kafka used Zookeeper system as a reliable directory based on a distributed coordination of multiple replicas under the Enssemble concept.
+
+The Documentation of Apache Kafka can be accessed from
+link:https://kafka.apache.org/documentation/[Kafka 2.5].
+
+The Documentation of Zookeeper can be accessed from
+link:https://zookeeper.apache.org/doc/r3.6.1/index.html[Zookeeper 3.6.1].
+
+Since Kafka needs Zookeeper we start by evaluating a Zookeeper installation ready to be used by Kafka to implement a reliable messaging solution.
+
+
+== The Zookeeper System
+A Zookeeper server relies on a configuration file named zoo.cfg. It is located at <Zookeeper.home>/conf directory where a sample cames with the installation. Depending on the installation type, the minimal configuration attributes are:
+
+* Standalone
+** A single server without any coordination with any other server
+[source, properties]
+----
+tickTime=2000
+dataDir=/tmp/zookeeper
+clientPort=2181
+----
+* Enssemble
+** A group of servers sharing a same configuration file and each one with the myid file at directory dataDir/mydir with the node id as a unique content. To join an enssemble the zoo.cfg file needs to include the identification os the server and its hostname or IpAddress and two ports, one the peerPort and the other the leaderPort.
+[source, properties]
+----
+tickTime=2000
+dataDir=/tmp/zookeeper
+clientPort=2181
+server.1=siserver0:2888:3888
+server.2=siserver1:2888:3888
+server.3=siserver2:2888:3888
+----
+The peerPort makes possible each peer node (server) to communicate each other. The leaderPort is used by the coordination algoritm to the election of the leader the ZooKeeper atomic broadcast (link:https://www.google.pt/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0ahUKEwjYwK7mne3aAhVKuhQKHRhqA8QQFggoMAA&url=https%3A%2F%2Fcwiki.apache.org%2Fconfluence%2Fdownload%2Fattachments%2F24193444%2Fyl-2010-007.pdf%3Fversion%3D1%26modificationDate%3D1468443609000%26api%3Dv2&usg=AOvVaw164_7oQSgVqczi3JKizBPX[Zab]) protocol.
+
+== Zookeeper configuration
+
+The possible attributes for the zoo.cfg file can be:
+
+=== Basic attributes
+* clientPort
+** The port for clients to access the server, by default 2181.
+* dataDir and dataLogDir
+** It is used to store memory snapshots and if the server belongs to an ensemble the myId file is also in this directory.
+** If not set, the dataLogDir shares the dataDir. For high performance it might be advaisable to store logs in a different disk (if disk heads seek latency is a problem).
+* tickTime
+** It is the zookeeper measure unit of time unit, in miliseconds. E.g., a leader sends a ping for a learner each half a tickTime, each second for a tickTime of 2000.
+
+=== Advanced attributes
+* preAllocSize
+** Preallocation size for transaction log files, default 64MB.
+* snapCount
+** Number of transactions between snapshots
+* autopurge.snapRetainCount
+** The number of snapshots and the respective transactions on purging data.
+* autopurge.purgeInterval
+* fsync.warningthresholdms
+* weight.x=n
+* traceFile
+
+=== Netwok Configuration
+* globalOutstandingLimit
+* maxClientCnxns
+* clientPortAddress
+* minSessionTimeout
+* maxSessionTimeout
+
+=== Cluster Configuration
+* initLimit
+* syncLimit
+* leaderServes
+* server.x=[hostname]:n:n[:observer]
+* cnxTimeout
+* electionAlg
+
+=== Authentication and Authorization Options
+* zookeeper.DigestAuthenticationProvider.superDigest
+
+=== Unsafe Options
+* forceSync
+* jute.maxbuffer
+* skipACL
+* readonlymode.enabled
+
+=== Logging
+The zookeeper uses Simple Loggin FAcade for Java (link:https://www.slf4j.org[SLF4J]). Its configuration is based on the log4j.properties file.
+
+=== Dedicated Resources
+Considering Zookeeper is a critical element, it must be deployed on a exclusive machine (server).
+
+=== The Majority Rules
+A set of minimal servers established by an ensemble configure a quorum. However, subsets with dijoint servers can't occur to avoid what is named as split-brain. The restriction imposing a majority of servers to establish a quorum avoids such a situation. By default Zookeeper adopts majority quorum, meaning that more than an half of the ensemble is necessary to establish a quorum and this way there are no disjoint sets.
+
+=== Configurable Quorum
+The Zookeeper supports a quite flexible strategy to establish quorums.
+
+* group.x=n[:n]
+** x is the group identifier and the sequence of one or more n's are the servers belongng to the group (group.1=1:2:3, group.2=4:5:6, group.3=7:8:9, is a possible group configuration).
+* weight.x=n
+** By default a server has weight=1 but it can have a different weight is this atribute is set (weight.4=2, the weight of server 4 is now 2). If we trust in a specific server with advanced fault tolerance features (potentially more expensive), it is advaisable to promote it with a diferentiated weight. Based on G groups with weight W any quorum can be formed by any G' group such that |G'| > |G| / 2 and W' > W / 2
+
+This is a critical aspect to establish a reliable set of servers that maximizes fault tolerance, making this way informatic systems reliable.
+
+=== Observers
+A special server, not part of a Zookeeper ensemble with the mission to guarantee the order os state updates. A server can be a participant or a observer.
+
+* peerType=observer
+* server.1=siserver0.local:2888:3888:observer
+** The server.1 is an observer and not any more part of an ensemble.
+
+=== Reconfiguration
+It is a critical process since state (transactiosn state) might be different for the server that stays in relation to the servers are leaving. This way, Zookeeper includes a dynamic configuration mechanism to prevent such situations. The dyn.cfg configuration file is introduced and included into the standard zoo.cfg file through the dynamicConfigFile attribute
+
+* dynamicConfigFile
+** Declares the servers of the ensemble in the format: 
+*** server.id=host:n:n[:role];[client_address:]client_port
+
+Our previous configuration for the 3 server ensemble becomes now:
+[source, properties]
+----
+tickTime=2000
+dataDir=/tmp/zookeeper
+dynamicConfigFile=./dyn.cfg
+----
+And the dyn.cfg with the content:
+[source, properties]
+----
+server.1=siserver0:2888:3888;client_address:2181
+server.2=siserver1:2888:3888;client_address:2181
+server.3=siserver2:2888:3888;client_address:2181
+server.4=generoso:2888:3888:observer;client_address:2181
+----
+The dynamic config feature stays option to be evaluated since it requires a deeper understanding of the Zookeeper intrinsics.
+
+=== Connections from Clients
+A client accesses znodes identified by a path. Initially a Zookeeper server has only the zookeeper application (znode).
+
+
+== The Kafka Reliable Messaging System
+To make easier the validation, starts a standalone version of Zookeeper and configure a Kafka Cluster with three servers.
+
+=== Installation of Kafka
+Download Apache Kafka from link:https://www.apache.org/dyn/closer.cgi?path=/kafka/2.5.0/kafka_2.12-2.5.0.tgz[download] and install it on each Linux node.
+[source, bash]
+----
+si@siserver0:~/Downloads$ tar -zxf kafka_2.12-2.5.0.tgz
+si@siserver0:~/Downloads$ sudo mv kafka_2.12-2.5.0 /usr/local/kafka
+si@siserver0:~/Downloads$ mkdir /tmp/kafks-logs
+----
+
+Edit the server.properties and change the broker.id to equals the unique identification of the server in the cluster, values ranging between 0..n. The suggestion is to consider for evaluation three servers [0, 1, 2].
+In the properties file change the replication factor to 2, meaning that the minimal number of servers running is 2.
+
+* offsets.topic.replication.factor=2
+* transaction.state.log.replication.factor=2
+* transaction.state.log.min.isr=2
+
+And add the following attribute in order to be possible to remove a topic.
+
+* delete.topic.enable=true
+
+Finally it is necessary to configure the zookeeper server, standalone or in quorum mode (an Enssemble). For this purpose change the zookeeper.connect parameter, in our case, with the addresses of the host of the zookeeper enssemble.
+Be aware that this configuration needs to be extended to all the servers of the kafka cluster.
+
+* zookeeper.connect=siserver0:2181,siserver1:2181,siserver2:2181,siserver3:2181,siserver4:2181
+
+[source, bash]
+----
+si@siserver0:~/Downloads$ sudo vi /usr/local/kafka/config/server.properties 
+----
+
+After these steps, the server is ready to be started.
+[source, bash]
+----
+si@siserver0:~/Downloads$ sudo /usr/local/kafka/bin/kafka-server-start.sh -daemon /usr/local/kafka/config/server.properties
+
+## stoping the server
+si@siserver0:~/Downloads$ sudo /usr/local/kafka/bin/kafka-server-stop.sh
+----
+
+Before running producer and consumer there is the need to create a topic, the demo topic "IESDv1920-Topic"
+[source, bash]
+----
+si@siserver0:~/Downloads$ /usr/local/kafka/bin/kafka-topics.sh --create --zookeeper generoso:2181 --replication-factor 1 --partitions 4 --topic IESDv1920-Topic
+----
+
+=== Validation KafkaMsgRoot projects
+The KafkaMsgRoot includes two subprojects (maven modules), a simplified producer and a consumer. The consumer, KafkaSubscriber, has a simple configuration to establish the consumer group. To have two consumer instances receiving all the messages, they have to be in different groups (by default the group is "IESD1920sv-G0" and if an id is an argument (through Run Configurations... in Eclipse) it is appended to the default ID.
+
+To check the running servers, the easiest way is to read the znode /brokers/ids
+ 
+
+[source, zookeeper]
+----
+[zk: generoso(CONNECTED) 93] ls /brokers/ids
+----
+
+You can further navigate through other created znodes (by Kafka messaging system).
+
+==== Fault Tolerance
+Starting with three nodes and one or more producers and consumers (in the same or different consumer groups), stops one of the servers. The message exchange is supposed to be not affected. Only when two servers are stopped, remaining only one, the configuration that imposes a minimum of 2 is validated, and no more messages are exchanged.
+
+It is considered a valorization of the work, obtaining performance metrics to be included and discussed in the report.
+
+
+=== Related Projects
+There is a crescent number of projects using or adding features to Kafka, namely the link:https://github.com/SourceLabOrg/kafka-webview[kafka-webview] that you can clone and execute to get a web view over Kafka entities.
+
+
+== Reference
+* The Apache Kafka Documentation
+link:https://kafka.apache.org/documentation/[Kafka 1.1].
+* The Apache Zookeeper documentation link:https://zookeeper.apache.org/doc/r3.4.12/index.html[Zookeeper 3.5.12].
+

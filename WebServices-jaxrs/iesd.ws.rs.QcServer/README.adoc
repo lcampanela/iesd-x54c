@@ -1,0 +1,55 @@
+= Projeto iesd.webservice.QcServer
+
+Elemento autónomo que instancia a classe ReadWriteQcDataRS com os serviços REST, recursos (resources) na terminologia REST.
+A classe iesd.jaxrs.server.QcDataRSApplication regista recursos REST, no caso, os estabalecidos pela classe iesd.jaxrs.server.resources.ReadWriteQcDataRS.
+
+[source, java]
+----
+...
+@ApplicationPath(QcDataRSApplication.BASE_PATH)
+public class QcDataRSApplication extends Application {
+	
+    public static final String BASE_PATH = "iesd";
+    private static final Set<Class<?>> RESOURCES_CLASSES = new java.util.HashSet<Class<?>>();   
+
+    static {
+        RESOURCES_CLASSES.add(ReadWriteQcDataRS.class);
+//        RESOURCES_CLASSES.add(AuthResource.class);
+//        RESOURCES_CLASSES.add(VehicleResource.class);
+    }
+    @Override
+    public Set<Class<?>> getClasses() {
+        return RESOURCES_CLASSES;
+    }
+}
+----
+
+A base do caminho de acesso aos recursos, BASE_PATH = "iesd". Por exemplo no recurso ping é acedido pelo endereço: http://localhost:2058/iesd/QcDataRS/ping. Na classe ReadWriteQcDataRS a anotação @Path("/QcDataRS") estabelece os recursos em /iesd//QcDataRS, a que se segue o caminho de cada um, e.g. o ping em @Path("/ping").
+
+[source, java]
+----
+...
+@Path("/QcDataRS")
+public class ReadWriteQcDataRS implements ReadWriteQcData {
+...
+    @GET
+    @Path("/ping")
+    @Produces({MediaType.TEXT_PLAIN})
+    public String ping() {
+        System.out.println("context.getAbsolutePath() = " + context.getAbsolutePath());
+        return "ReadWriteQcDataRS.ping() is alive...";
+    }
+...
+----
+
+== Execução do elemento QcServer
+Com o rato sobre o projeto, no menu com botão direito selecionar "Run As"-> "Maven Build.." e no campo Goals escrever jetty:run e premir o botão Run. Este procedimento no eclipse é equivalente ao comando mvn jetty:run na diretoria do projeto.
+* "Run As"-> "Maven Build.." e no campo Goals escrever jetty:run e premir o botão Run.
+
+Ou num terminal (shell):
+
+[source, terminal]
+----
+C:\Users\aosorio\git\iesd1920sv\WebServices-jaxrs\iesd.ws.rs.QcServer>mvn jetty:run
+----
+

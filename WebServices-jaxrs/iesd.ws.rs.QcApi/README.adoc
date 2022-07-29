@@ -1,0 +1,9 @@
+== Projeto iesd.webservice.QcApi
+
+Formalização da interface QcApi.
+
+A classs QcData � anotada com @XmlRootElement, indicando-a como elemento raiz da representacão standard XML Schema Definition (https://www.w3.org/TR/xmlschema11-1/[XSD]) do modelo de dados. Documentacão complementar sobe XSD em https://www.w3schools.com/xml/schema_intro.asp[w3schools].
+
+A interface ReadWriteQcData mantém os métodos como estabelecido para a implementacão SOAP embora no caso de uma implementacão REST sejam apenas para orientar as operacães GET, POST, PUT, DELETE e HEAD, correspondentes aos métodos HTTP com a mesma designacão.
+
+

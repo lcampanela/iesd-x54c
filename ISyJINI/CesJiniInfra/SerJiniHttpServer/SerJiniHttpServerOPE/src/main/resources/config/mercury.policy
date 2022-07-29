@@ -1,0 +1,7 @@
+/* Security policy for non-secure Mercury */
+
+/* Grant all permissions to our classes */
+grant {
+    permission java.security.AllPermission "","";
+    permission java.net.SocketPermission "*:8080", "connect";
+};

@@ -1,0 +1,49 @@
+= Projeto WebServices-jaxrs
+
+Tem por objetivo poder servir de base à implementação do algoritmo de coordenação Quorum Consensus, implementado na base de Java Web Services REST.
+
+Demonstra a interação na base de Web Service Representational State Transfer (REST) aplicado ao exemplo QcApi. O exemplo utiliza a biblioteca standard javax.ws.rs, Java API, RESTful Web Services (JAX-RS), na especificação standard https://jcp.org/en/jsr/detail?id=339[JSR-339].
+
+== Conceitos essenciais:
+* No estilo arquitetural REST dados e funcionalidades são referidos como recursos e são acessíveis através de um endereço único Uniform Resource Identification (URI);
+* Os recursos são documentos num determinado formato, e.g. XML, JSON, determinado pelo seu tipo _Multipurpose Internet Mail Extensions_ (MIME) type. Pode ser um documento XMP, HTML, JSON, ficheiro imagem de vídeo ou fotografia, etc. Meta-data com a caracterização do tipo de recurso permite contextualizar a sua manipulação em diferentes contextos, e.g. negociar o formato, controle de caching, deteção de erros de transmissão, autenticação e controlo de acesso;
+* Os recursos são documentos acedidos através de operações simples (interface unificada na base de métodos HTTP): PUT (novo recurso), GET (obtém o estado corrente do recurso), POST (atualiza o estado do recurso) e DELETE (elimina o recurso);
+* Considera interações Stateless na base da simplicidade HTTP. O estado do cliente poderá ser mantido com mecanismos auxiliares como seja através da utilização de Cookies (ou URI rewriting ou hiden form fields).
+
+Um elemento REST é formalizado através de uma classe recurso raiz (*root resource class*) anotada com @Path ou que tenha pelo menos um método anotado com @Path ou com um *request method designator*: @GET, @PUT, @POST, @DELETE.
+
+== No exemplo
+A classe QcDataRS, no projeto iesd.ws.rs.QcServer, é a nossa *root resource class* que implementa os métodos anotados ou *request method designator* de acesso à estrutura QcData.
+O método ping() foi implementado apenas para efeitos de teste dos serviço REST.
+
+[source, java]
+----
+@Path("/QcDataRS")
+public class ReadWriteQcDataRS implements ReadWriteQcData {
+...
+	@GET
+	@Path("/ping")
+	@Produces({MediaType.TEXT_PLAIN})
+	public String ping() {
+		System.out.println("ReadWriteQcDataRS.ping() accessed...");
+		return "ReadWriteQcDataRS is alive...";
+	}
+...
+----
+
+O exemplo inclui os seguintes projetos:
+* *iesd.ws.rs.QcApi* - Interface de serviços REST e modelos de dados dos recursos.
+* *iesd.ws.rs.QcClient* - Exemplos de acesso programático em Java a recursos REST, serviços web REST. Executa como aplicação Java, main().
+* *iesd.ws.rs.QcDataPortal* - Interface web baseada no quadro tecnológico, web framework https://vaadin.com/start/v14[Vaadin]. O projeto gera um elemento de sistema informático autónomo a ser executado na máquina virtual Java (JVM) e servidor web Jetty.
+* *iesd.ws.rs.QcProxy* - A implementação do acesso às operações REST "escondendo" os detalhes do modelo programático JAX-RS do lado cliente.
+* *iesd.ws.rs.QcServer* - Implementação de serviços REST no acesso a recursos QcData. Executa enquanto elemento autónomo de um sistema informático.
+
+Pode iniciar o servidor com o botão direito do rato selecionando "Run As"->"Maven Build.." e no campo Goals escrever jetty:run e premir o botão Run.
+
+Poderá verificar num web browser se o recurso ping está disponível em:
+* http://localhost:2058/QcDataRS/ping
+
+Depois de executar o projeto iesd.ws.rs.QcClient, "Run As"->"Java Application", poderá obter num browser web todas as instâncias do recurso QcData:
+* http://localhost:2058/QcDataRS/listAllQcData
+
+

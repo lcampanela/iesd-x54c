@@ -1,0 +1,53 @@
+= Qc (Quantum Coordination)
+
+The Qc project is part of the ISystem ISyIESD. It contains one CES called CESQc that has two services: SerQcServer and SerQcClient.
+
+
+|====
+|Name |Type |GroupId |ArtifactId
+
+|ISyIESD
+|ISystem
+|iesd21.isos
+|isyiesd
+
+|CESQc
+|CES
+|iesd21.isos.isyiesd
+|cesqc
+
+|SerQcServer
+|Service
+|iesd21.isos.isyiesd.cesqc
+|serqcserver
+
+|SerQcClient
+|Service
+|iesd21.isos.isyiesd.cesqc
+|serqcclient
+|====
+
+== Service SerQcServer
+
+=== APIM Module (API and Models)
+
+Contains the interface ReadWriteQcData with pour methods:
+
+* QcData readQcData(String email) - returns a QcData object from a given email
+* int writeQcData(String eMail, QcData qcData) - assigns a given email with a given object QcData, returns 0 if there was an error
+* int deleteQcData(String eMail) - deletes the QcData object that was assigned with the given email, returns 0 if email was not found
+* List<QcData> listAllQcData() - obtains all QcData objects
+
+=== OPE Module (Operations)
+
+Contains the implementation of the ReadWriteQcData interface (ReadWriteQcDataImp) and the main class (SiteServer) that exposes the Web Service in http://localhost:2059/QcDataServer?wsdl.
+
+== Service SerQcClient
+
+=== APIM Module (API and Models)
+
+Contains the generated classes of the Web Server. Acts as a proxy. To generate these classes, make sure the Web Server is running (http://localhost:2059/QcDataServer?wsdl), and then run `mvn install`. They are located at `serqcclientapim/target/generated-sources/wsimport`.
+
+=== OPE Module (Operations)
+
+The implementation of the Client that call methods of the Server.

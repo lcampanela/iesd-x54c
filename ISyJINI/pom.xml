@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>isos.tutorial</groupId>
+	<artifactId>ISyJINI</artifactId>
+	<version>0.1.0</version>
+	<packaging>pom</packaging>
+
+	<name>${module.type} isyjini</name>
+	<url>${isos.base.url}</url>
+
+	<properties>
+		<module.type>ISYSTEM ::</module.type>
+
+        <!-- SOURCE CODE PROPERTIES -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+
+        <!-- Plugins Versions -->
+        <maven-compiler-plugin>3.8.1</maven-compiler-plugin>
+        <maven-assembly-plugin>3.3.0</maven-assembly-plugin>
+        <maven-scr-plugin>1.24.0</maven-scr-plugin>
+        <maven-install-plugin>2.5.2</maven-install-plugin>
+        <maven-bundle-plugin>4.2.1</maven-bundle-plugin>
+        <karaf-maven-plugin>4.2.6</karaf-maven-plugin>
+        
+        <!-- SYSTEM PROPERTIES -->
+        <codebase.dir>${user.home}/.jini/www/classes</codebase.dir>
+        
+        <jini.version></jini.version>
+		<codebase.dir>${user.home}/.jini/www/classes</codebase.dir>
+	</properties>
+
+	<modules>
+		<module>CesJiniBOM</module>
+		<module>CesJiniInfra</module>
+		<module>CesJiniHello</module>
+		<module>CesJiniBank</module>
+		<module>CesJiniSpaces</module> 
+		<module>CesJiniEvents</module>
+	</modules>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>isos.tutorial.isyjini.cesjinibom</groupId>
+				<artifactId>SerJiniBomAPIM</artifactId>
+				<version>0.1.0</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+					</dependencies>
+	</dependencyManagement>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.felix</groupId>
+					<artifactId>maven-bundle-plugin</artifactId>
+					<version>${maven-bundle-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.karaf.tooling</groupId>
+					<artifactId>karaf-maven-plugin</artifactId>
+					<version>${karaf-maven-plugin}</version>
+					<extensions>true</extensions>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-install-plugin</artifactId>
+					<version>${maven-install-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-compiler-plugin</artifactId>
+					<version>${maven-compiler-plugin}</version>
+				</plugin>
+
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-resources-plugin</artifactId>
+					<version>3.1.0</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>
